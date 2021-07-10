@@ -1,9 +1,69 @@
 @charset "utf-8";
 
-$body-background-color: #20232a;
+//* -------------------------------------------------------------------------- */
+//*                                   COLORS                                   */
+//* -------------------------------------------------------------------------- */
 
-$background-color: #fff;
-$text-color: #2c3e50;
-$font-family: Avenir, Helvetica, Arial, sans-serif;
+$blue_grey: hsl(200, 15%, 50%);
+$blue_grey_shadow: transparentize($blue_grey, 0.75);
+
+$color: $blue_grey;
+$color_d5: darken($color, 45%);
+$color_d4: darken($color, 40%);
+$color_d3: darken($color, 30%);
+$color_d2: darken($color, 20%);
+$color_d1: darken($color, 10%);
+
+$color_l1: lighten($color, 10%);
+$color_l2: lighten($color, 20%);
+$color_l3: lighten($color, 30%);
+$color_l4: lighten($color, 40%);
+$color_l5: lighten($color, 45%);
+
+$bg_wintitle: $color_d4;
+$bg_footer: $color_d3;
+$bg_tabs: $color_d2;
+$bg_ribbon: $color_l3;
+$bg_sidebar: $color_l4;
+$bg_main: $color_l5;
+
+$sldr_color: $color_d1;
+
+$color_ok: hsl(120, 50%, 36%);
+$color_cancel: hsl(0, 50%, 40%);
+
+//* -------------------------------------------------------------------------- */
+//*                                    SIZES                                   */
+//* -------------------------------------------------------------------------- */
+
+$h_title: 36px;
+$h_tabs: 28px;
+$h_ribbon: 72px;
+$h_footer: 24px;
+// $h_main: 300px;
+// $h_main: calc(100vh - $h_title - $h_tabs - $h_ribbon - $h_footer);
+// $h_main: calc(	100vh - var($h_title) - var($h_tabs) - var($h_ribbon) - var($h_footer));
+$h_main: calc(100vh - 36px - 28px - 72px - 24px);
+
+$w_sidebar: 320;
+
+$shadow1: 5px 5px 10px transparentize($color, 0.75);
+$shadow2: 5px 5px 10px transparentize($color_d4, 0.5);
+$sldr_shadow: 2px 2px 5px transparentize($sldr_color, 0.5);
+$shadowscroll: 0px 0px 5px transparentize($color, 0.75);
+
+$stdRadius1: 10px;
+
+//* -------------------------------------------------------------------------- */
+//*                                    OTHER                                   */
+//* -------------------------------------------------------------------------- */
+
+$body-background-color: $bg_main;
+
+$background-color: $bg_main;
+$text-color: $stdRadius1;
+$font-family: Roboto, Avenir, Helvetica, Arial, sans-serif;
 $padding: 2rem;
-$border-radius: $padding;
+$border-radius: $stdRadius1;
+
+$main-color: $sldr_color;
