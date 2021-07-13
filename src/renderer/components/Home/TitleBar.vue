@@ -14,6 +14,18 @@ export default {
 	},
 	//* --------------------------------- METHODS -------------------------------- */
 	methods: {
+		winMinimize: function() {
+			this.$electron.remote.BrowserWindow.getFocusedWindow().minimize()
+			this.status = 'minimized'
+		},
+		winMaximize: function() {
+			this.$electron.remote.BrowserWindow.getFocusedWindow().maximize()
+			this.status = 'maximized'
+		},
+		winRestore: function() {
+			this.$electron.remote.BrowserWindow.getFocusedWindow().restore()
+			this.status = 'normal'
+		},
 		winClose: function() {
 			ipcRenderer.send('winClose')
 		},
@@ -27,6 +39,10 @@ export default {
 }
 </script>
 
+//* ------------------------------------------------------------------------ *//
+//* ------------------------------- TEMPLATE ------------------------------- *//
+//* ------------------------------------------------------------------------ *//
+
 <template>
 	<div id="titlebar" :style="{ width: this.winWidth }">
 		<div id="drag-region">
@@ -38,7 +54,7 @@ export default {
 			</div>
 
 			<div id="window-controls">
-				<div class="button" id="min-button" @click="this.SET_MINIMIZED()">
+				<div class="button" id="min-button" @click="winMinimize()">
 					<img
 						class="icon"
 						src="../../assets/img/titlebar/icon_minimize.svg"
@@ -49,7 +65,7 @@ export default {
 					class="button"
 					id="max-button"
 					v-if="status === 'normal'"
-					@click="this.SET_MAXIMIZED()"
+					@click="winMaximize()"
 				>
 					<img
 						class="icon"
@@ -61,7 +77,7 @@ export default {
 					class="button"
 					id="restore-button"
 					v-if="status === 'maximized'"
-					@click="this.SET_RESTORED()"
+					@click="winRestore()"
 				>
 					<img
 						class="icon"
@@ -81,6 +97,9 @@ export default {
 	</div>
 </template>
 
+//* ------------------------------------------------------------------------ *//
+//* --------------------------------- STYLE -------------------------------- *//
+//* ------------------------------------------------------------------------ *//
 <style lang="scss" scoped>
 @import '@/index';
 
