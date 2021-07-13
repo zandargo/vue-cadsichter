@@ -1,5 +1,8 @@
-import { app, BrowserWindow } from 'electron'
-import '../renderer/store'
+import { app, BrowserWindow, ipcMain } from 'electron'
+
+import store from '../renderer/store/index'
+
+import variables from '../renderer/index.scss'
 
 /**
  * Set `__static` path to static files in production
@@ -23,11 +26,26 @@ function createWindow() {
 	 */
 	mainWindow = new BrowserWindow({
 		height: 563,
-		useContentSize: true,
 		width: 1500,
+		minWidth: 600,
+		minHeight: 400,
+		backgroundColor: '#333333',
+		frame: false,
+		transparent: true,
+		// backgroundColor: variables.backgroundColor,
+		// backgroundColor: '#000000',
+		useContentSize: true,
+		icon: `${__dirname}/icons/eGPF1.png`,
+		webPreferences: {
+			devTools: false,
+			// nodeIntegration: true,
+			// enablemotemodule: true,
+		},
 	})
 
 	mainWindow.loadURL(winURL)
+
+	mainWindow.setBackgroundColor(variables.backgroundColor)
 
 	mainWindow.on('closed', () => {
 		mainWindow = null
@@ -36,10 +54,39 @@ function createWindow() {
 
 app.on('ready', createWindow)
 
+ipcMain.on('qDev', (event, arg) => {
+	isDev
+		? mainWindow.webContents.send('init', 'isDev')
+		: mainWindow.webContents.send('init', 'notDev')
+})
+
+ipcMain.on('winMinimize', () => {
+	mainWindow.minimize()
+	store.state.MainWindow.winStatus = 'minimized'
+})
+ipcMain.on('winMaximize', () => {
+	mainWindow.maximize()
+	store.state.MainWindow.winStatus = 'maximized'
+})
+ipcMain.on('winRestore', () => {
+	mainWindow.restore()
+	store.state.MainWindow.winStatus = 'normal'
+	mainWindow.setSize(500, 600)
+})
+ipcMain.on('winClose', () => {
+	if (process.platform !== 'darwin') {
+		app.quit()
+	}
+})
+
 app.on('window-all-closed', () => {
 	if (process.platform !== 'darwin') {
 		app.quit()
 	}
+})
+
+app.on('winMinimize', () => {
+	console.log('Minimized')
 })
 
 app.on('activate', () => {
