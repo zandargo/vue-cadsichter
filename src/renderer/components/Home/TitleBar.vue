@@ -3,6 +3,10 @@
 //*                                   SCRIPT                                   */
 //* -------------------------------------------------------------------------- */
 const { ipcRenderer } = require('electron')
+//_ ipcRenderer.on('winRestored', () => {
+//_ 	winRestore()
+//_ })
+//_ ipcRenderer.on('winMaximized', () => winMaximize())
 
 export default {
 	name: 'titlebar',
@@ -10,44 +14,85 @@ export default {
 	data: function() {
 		return {
 			status: 'normal',
+			isMaximized: false,
 		}
+	},
+	//* -------------------------------- MOUNTED ------------------------------- *//
+	mounted() {
+		//_ const { ipcRenderer } = require('electron')
+		setInterval(() => {
+			this.$electron.ipcRenderer.send('ping')
+		}, 1000)
+
+		this.$electron.ipcRenderer.on('pong', (event, data) => {
+			this.myDataVar = data
+			console.log(data)
+		})
+
+		// this.$electron.ipcRenderer.on('winRestored', () => {
+		// 	console.log('Opa')
+		// })
+	},
+	//* ------------------------------- DESTROYED ------------------------------ *//
+	destroyed() {
+		this.$electron.ipcRenderer.removeAllListeners()
 	},
 	//* --------------------------------- METHODS -------------------------------- */
 	methods: {
+		toggleMaximize: function() {
+			// this.isMaximized = !this.isMaximized
+			console.log('toggleMaximize')
+		},
 		winMinimize: function() {
 			this.$electron.remote.BrowserWindow.getFocusedWindow().minimize()
-			this.status = 'minimized'
+			//_ this.status = 'minimized'
+			console.log('winMinimize', 'App minimized')
 		},
 		winMaximize: function() {
 			this.$electron.remote.BrowserWindow.getFocusedWindow().maximize()
 			this.status = 'maximized'
+			console.log('winMaximize', 'App maximized')
 		},
 		winRestore: function() {
 			this.$electron.remote.BrowserWindow.getFocusedWindow().restore()
 			this.status = 'normal'
+			console.log('winRestore', 'App restored')
 		},
 		winClose: function() {
 			ipcRenderer.send('winClose')
 		},
 	},
 	//* -------------------------------- COMPUTED -------------------------------- */
-	//_ computed: {
-	//_ 	winStatus() {
-	//_ 		return this.$store.getters.finishedGame.finished
-	//_ 	},
-	//_ },
 }
-</script>
+//_ computed: {
+//_ 	winStatus() {
+//_ 		return this.$store.getters.finishedGame.finished
+//_ 	},
+//_ },
+/*
 
+
+
+
+
+
+
+
+*/
+</script>
 //* ------------------------------------------------------------------------ *//
 //* ------------------------------- TEMPLATE ------------------------------- *//
 //* ------------------------------------------------------------------------ *//
 
 <template>
-	<div id="titlebar" :style="{ width: this.winWidth }">
+	<div id="titlebar">
 		<div id="drag-region">
 			<div id="window-icon">
-				<img src="../../../main/icons/SB_Icon-GPF1.svg" alt="App icon" />
+				<img
+					src="../../../main/icons/SB_Icon-GPF1.svg"
+					alt="App icon"
+					draggable="false"
+				/>
 			</div>
 			<div id="window-title">
 				<span>CADsichter v0.1</span>
@@ -104,21 +149,13 @@ export default {
 @import '@/index';
 
 #titlebar {
-	// display: block;
-	// position: absolute;
-	// top: 0;
-	// left: 0;
 	height: $h_title;
 	width: 100vw;
 	margin: auto;
 	margin-right: 0px;
-	// width: calc(100% - 2px);
 	color: $color_l5;
 	background-color: $bg_wintitle;
 	grid-area: 1 / 1 / last-line / last-row;
-	// grid-row: 1;
-	//_ width: calc(100% - 2px);
-	//_ padding: 4px;
 
 	.maximized {
 		width: 100vw;
@@ -140,23 +177,19 @@ export default {
 		grid-template-columns: 32px auto 138px;
 	}
 
-	// #main {
-	// 	height: calc(100% - 32px);
-	// 	margin-top: 32px;
-	// 	padding: 20px;
-	// 	overflow-y: auto;
-	// }
-
 	#window-icon {
 		grid-column: 1;
 		display: flex;
 		align-items: center;
-		// margin-left: 8px;
 		margin: auto;
 		overflow: hidden;
+		-webkit-app-region: drag;
+		user-select: none;
 
 		img {
 			height: 24px;
+			user-select: none;
+			-webkit-app-region: drag;
 		}
 	}
 
@@ -164,7 +197,6 @@ export default {
 		grid-column: 2;
 		display: grid;
 		align-items: center;
-		// margin-left: 8px;
 		margin: 0px 10px;
 		overflow: hidden;
 		font-size: 16px;
@@ -179,7 +211,7 @@ export default {
 			white-space: nowrap;
 			line-height: 1.5;
 			place-self: center center;
-			//_ font-weight: 800;
+			user-select: none;
 		}
 	}
 	#window-controls {

@@ -50,6 +50,10 @@ function createWindow() {
 	mainWindow.on('closed', () => {
 		mainWindow = null
 	})
+
+	ipcMain.on('ping', (event) => {
+		event.sender.send('pong', Math.random())
+	})
 }
 
 app.on('ready', createWindow)
@@ -60,39 +64,51 @@ ipcMain.on('qDev', (event, arg) => {
 		: mainWindow.webContents.send('init', 'notDev')
 })
 
-ipcMain.on('winMinimize', () => {
-	mainWindow.minimize()
-	store.state.MainWindow.winStatus = 'minimized'
-})
-ipcMain.on('winMaximize', () => {
-	mainWindow.maximize()
-	store.state.MainWindow.winStatus = 'maximized'
-})
-ipcMain.on('winRestore', () => {
-	mainWindow.restore()
-	store.state.MainWindow.winStatus = 'normal'
-	mainWindow.setSize(500, 600)
-})
-ipcMain.on('winClose', () => {
-	if (process.platform !== 'darwin') {
-		app.quit()
-	}
-})
+// ipcMain.on('winMinimize', () => {
+// 	mainWindow.minimize()
+// 	store.state.MainWindow.winStatus = 'minimized'
+// })
+// ipcMain.on('winMaximize', () => {
+// 	mainWindow.maximize()
+// 	store.state.MainWindow.winStatus = 'maximized'
+// })
+// ipcMain.on('winRestore', () => {
+// 	mainWindow.restore()
+// 	store.state.MainWindow.winStatus = 'normal'
+// 	mainWindow.setSize(500, 600)
+// })
 
 app.on('window-all-closed', () => {
 	if (process.platform !== 'darwin') {
 		app.quit()
 	}
 })
-
-app.on('winMinimize', () => {
-	console.log('Minimized')
-})
-
 app.on('activate', () => {
 	if (mainWindow === null) {
 		createWindow()
 	}
+})
+
+ipcMain.on('winClose', () => {
+	if (process.platform !== 'darwin') {
+		app.quit()
+	}
+})
+
+app.on('restore', () => {
+	ipcMain.send('winRestored')
+})
+app.on('maximize', () => {
+	ipcMain.send('winMaximized')
+})
+
+//! TESTES...................
+app.on('move', () => {
+	// ipcMain.send('winRestored')
+	app.webContents.send('winRestored')
+})
+app.on('winMinimize', () => {
+	console.log('Minimized')
 })
 
 /**

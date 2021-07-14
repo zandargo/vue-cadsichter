@@ -9,6 +9,22 @@ export default {
 		//_ LandingPage,
 		Home,
 	},
+
+	//* -------------------------------- MOUNTED ------------------------------- *//
+	mounted() {
+		//_ const { ipcRenderer } = require('electron')
+		setInterval(() => {
+			this.$electron.ipcRenderer.send('ping')
+		}, 1000)
+
+		this.$electron.ipcRenderer.on('pong', () => {
+			console.log('pong')
+		})
+
+		// this.$electron.ipcRenderer.on('winRestored', () => {
+		// 	console.log('Opa')
+		// })
+	},
 }
 </script>
 

@@ -2,6 +2,7 @@ import Vue from 'vue'
 
 import App from './App'
 import store from './store'
+
 // import { mapGetters, mapState } from 'vuex'
 
 import '@/index.scss'
