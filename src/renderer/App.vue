@@ -11,20 +11,7 @@ export default {
 	},
 
 	//* -------------------------------- MOUNTED ------------------------------- *//
-	mounted() {
-		//_ const { ipcRenderer } = require('electron')
-		setInterval(() => {
-			this.$electron.ipcRenderer.send('ping')
-		}, 1000)
-
-		this.$electron.ipcRenderer.on('pong', () => {
-			console.log('pong')
-		})
-
-		// this.$electron.ipcRenderer.on('winRestored', () => {
-		// 	console.log('Opa')
-		// })
-	},
+	mounted() {},
 }
 </script>
 
@@ -39,7 +26,9 @@ export default {
 @charset "utf-8";
 @font-face {
 	font-family: 'MainFont';
-	src: url('./assets/fonts/RobotoCondensed-Regular.ttf') format('truetype');
+	//_ src: url('./assets/fonts/RobotoCondensed-Regular.ttf') format('truetype');
+	src: url('./../../static/fonts/RobotoCondensed-Regular.ttf')
+		format('truetype');
 }
 @import '@/index';
 #app {

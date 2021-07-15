@@ -1,11 +1,13 @@
 <script>
 import TitleBar from './Home/TitleBar.vue'
+import Tabs from './Home/Tabs.vue'
 
 export default {
 	name: 'Home',
 
 	components: {
 		TitleBar,
+		Tabs,
 	},
 }
 </script>
@@ -13,6 +15,7 @@ export default {
 <template>
 	<div>
 		<TitleBar />
+		<Tabs />
 	</div>
 </template>
 
@@ -34,5 +37,11 @@ export default {
 	display: grid;
 	grid-template-columns: minmax(100px, 200px) minmax(25%, 50%) minmax(25%, 50%);
 	grid-template-rows: $h_title $h_tabs $h_ribbon $h_main $h_footer;
+	grid-template-areas:
+		'titlebar titlebar titlebar'
+		'tabs tabs tabs'
+		'ribbon ribbon ribbon'
+		'navbar main aux'
+		'footer footer footer';
 }
 </style>

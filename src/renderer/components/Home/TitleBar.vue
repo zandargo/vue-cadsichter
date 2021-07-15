@@ -20,18 +20,16 @@ export default {
 	//* -------------------------------- MOUNTED ------------------------------- *//
 	mounted() {
 		//_ const { ipcRenderer } = require('electron')
-		setInterval(() => {
-			this.$electron.ipcRenderer.send('ping')
-		}, 1000)
+		// setInterval(() => {
+		// 	// this.$electron.ipcRenderer.send('ping')
+		// 	ipcRenderer.send('ping')
+		// 	console.log('Ping')
+		// }, 5000)
 
-		this.$electron.ipcRenderer.on('pong', (event, data) => {
-			this.myDataVar = data
-			console.log(data)
+		// this.$electron.
+		ipcRenderer.on('pong', (event, data) => {
+			console.log('Pong received: ', data)
 		})
-
-		// this.$electron.ipcRenderer.on('winRestored', () => {
-		// 	console.log('Opa')
-		// })
 	},
 	//* ------------------------------- DESTROYED ------------------------------ *//
 	destroyed() {
@@ -89,7 +87,7 @@ export default {
 		<div id="drag-region">
 			<div id="window-icon">
 				<img
-					src="../../../main/icons/SB_Icon-GPF1.svg"
+					src="static/icons/SB_Icon-GPF1.svg"
 					alt="App icon"
 					draggable="false"
 				/>
@@ -102,7 +100,7 @@ export default {
 				<div class="button" id="min-button" @click="winMinimize()">
 					<img
 						class="icon"
-						src="../../assets/img/titlebar/icon_minimize.svg"
+						src="static/img/titlebar/icon_minimize.svg"
 						draggable="false"
 					/>
 				</div>
@@ -114,7 +112,7 @@ export default {
 				>
 					<img
 						class="icon"
-						src="../../assets/img/titlebar/icon_maximize.svg"
+						src="static/img/titlebar/icon_maximize.svg"
 						draggable="false"
 					/>
 				</div>
@@ -126,14 +124,14 @@ export default {
 				>
 					<img
 						class="icon"
-						src="../../assets/img/titlebar/icon_restore.svg"
+						src="static/img/titlebar/icon_restore.svg"
 						draggable="false"
 					/>
 				</div>
 				<div class="button" id="close-button" @click="winClose()">
 					<img
 						class="icon"
-						src="../../assets/img/titlebar/icon_close.svg"
+						src="static/img/titlebar/icon_close.svg"
 						draggable="false"
 					/>
 				</div>
@@ -155,7 +153,8 @@ export default {
 	margin-right: 0px;
 	color: $color_l5;
 	background-color: $bg_wintitle;
-	grid-area: 1 / 1 / last-line / last-row;
+	// grid-area: 1 / 1 / last-line / last-row;
+	grid-area: 'titlebar';
 
 	.maximized {
 		width: 100vw;

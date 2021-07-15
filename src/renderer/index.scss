@@ -5,6 +5,11 @@
 
 * {
 	background-color: 'black';
+	margin: 0;
+	padding: 0;
+	border: none;
+	font-variant-caps: petite-caps;
+	box-sizing: border-box;
 }
 #app {
 	width: 100vw;

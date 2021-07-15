@@ -1,5 +1,7 @@
 import { app, BrowserWindow, ipcMain } from 'electron'
-
+const { ipcMain } = require('electron')
+import fs from 'fs'
+const path = require('path')
 import store from '../renderer/store/index'
 
 import variables from '../renderer/index.scss'
@@ -38,8 +40,9 @@ function createWindow() {
 		icon: `${__dirname}/icons/eGPF1.png`,
 		webPreferences: {
 			devTools: false,
-			// nodeIntegration: true,
-			// enablemotemodule: true,
+			nodeIntegration: true,
+			enablemotemodule: true,
+			contextIsolation: false,
 		},
 	})
 
@@ -49,10 +52,6 @@ function createWindow() {
 
 	mainWindow.on('closed', () => {
 		mainWindow = null
-	})
-
-	ipcMain.on('ping', (event) => {
-		event.sender.send('pong', Math.random())
 	})
 }
 
@@ -93,6 +92,10 @@ ipcMain.on('winClose', () => {
 	if (process.platform !== 'darwin') {
 		app.quit()
 	}
+})
+ipcMain.on('ping', (event, data) => {
+	// event.sender.send('pong', Math.random())
+	event.reply('pong', Math.random())
 })
 
 app.on('restore', () => {
