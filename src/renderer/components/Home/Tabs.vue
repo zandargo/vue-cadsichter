@@ -2,14 +2,37 @@
 //* -------------------------------------------------------------------------- */
 //*                                   SCRIPT                                   */
 //* -------------------------------------------------------------------------- */
+
+// import { mapActions } from 'vuex'
+// import store from '../../store/index'
+// import { mapState, mapActions } from 'vuex'
+
 export default {
 	name: 'tabs',
+	// store,
 	//* ---------------------------------- DATA ---------------------------------- */
 	data: function() {
-		return {}
+		return {
+			booltest: false,
+		}
 	},
+	//* ------------------------------- COMPUTED ------------------------------- *//
+
 	//* --------------------------------- METHODS -------------------------------- */
-	methods: {},
+	methods: {
+		// teste: function() {
+		// 	console.log('Testando...')
+		// },
+		// setCurrentTab: function(tabName) {
+		// 	console.log(tabName)
+		// 	this.$store.dispatch('setTab', tabName)
+		// },
+		// ...mapActions({
+		// 	tabSetFlow,
+		// 	tabSetChart,
+		// 	tabSetDef,
+		// }),
+	},
 	//* -------------------------------- COMPUTED -------------------------------- */
 	computed: {},
 }
@@ -22,16 +45,20 @@ export default {
 		<button
 			id="bt-flow"
 			class="tablink active"
-			onclick="openTab(event, 'flow')"
+			@click="setCurrentTab('Flow')"
 		>
 			Esquema
 		</button>
 
-		<button id="bt-chart" class="tablink" onclick="openTab(event, 'chart')">
+		<button
+			id="bt-chart"
+			class="tablink"
+			@click="store.dispatch('tabSetChart')"
+		>
 			Esquemino
 		</button>
 
-		<button id="bt-defs1" class="tablink" onclick="openTab(event, 'defs1')">
+		<button id="bt-defs1" class="tablink" @click="setCurrentTab('Def')">
 			Ficha Técnica
 		</button>
 	</div>

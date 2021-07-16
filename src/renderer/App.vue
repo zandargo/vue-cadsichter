@@ -1,10 +1,12 @@
 <script>
 //_ import LandingPage from '@/components/LandingPage'
 import Home from '@/components/Home'
-import store from '../renderer/store/index'
+// import store from '../renderer/store/index'
+import store from './store/index'
 
 export default {
 	name: 'vue-cadsichter',
+	store,
 	components: {
 		//_ LandingPage,
 		Home,
