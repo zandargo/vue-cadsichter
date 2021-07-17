@@ -1,6 +1,8 @@
 <script>
 import TitleBar from './Home/TitleBar.vue'
 import Tabs from './Home/Tabs.vue'
+import Ribbon from './Home/Ribbon.vue'
+import SideBar from './Home/SideBar.vue'
 
 export default {
 	name: 'Home',
@@ -8,6 +10,8 @@ export default {
 	components: {
 		TitleBar,
 		Tabs,
+		Ribbon,
+		SideBar,
 	},
 }
 </script>
@@ -16,6 +20,8 @@ export default {
 	<div>
 		<TitleBar />
 		<Tabs />
+		<Ribbon />
+		<SideBar />
 	</div>
 </template>
 
@@ -41,7 +47,7 @@ export default {
 		'titlebar titlebar titlebar'
 		'tabs tabs tabs'
 		'ribbon ribbon ribbon'
-		'navbar main aux'
+		'sidebar main aux'
 		'footer footer footer';
 }
 </style>

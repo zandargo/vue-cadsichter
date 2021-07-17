@@ -1,0 +1,70 @@
+//* ----------------------------- BOX CONTAINER ---------------------------- *//
+.container {
+	margin: 20px 5px;
+	padding: 10px;
+	border-radius: $stdRadius1;
+	border: 1px solid $color_l2;
+}
+
+//* -------------------------------- SLIDER -------------------------------- *//
+
+.slider {
+	-webkit-appearance: none;
+	width: 85%;
+	height: 6px;
+	border-radius: 3px;
+	background: $color_l2;
+	outline: none;
+	-webkit-transition: 0.2s;
+	transition: all 0.2s;
+	//_ margin: 0 20px;
+	margin: 20px 5px;
+	opacity: 0.5;
+	&:hover {
+		opacity: 1;
+	}
+}
+.slider::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 16px;
+	height: 32px;
+	border-radius: 8px;
+	background: $sldr_color;
+	transition: all 0.1s;
+	box-shadow: $sldr_shadow;
+}
+.slider::-moz-range-thumb {
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	background: $sldr_color;
+	cursor: pointer;
+	box-shadow: $sldr_shadow;
+}
+
+//* ------------------------------- PRODUCTS ------------------------------- *//
+.flow-color-box {
+	box-sizing: border-box;
+	width: 24px;
+	height: 16px;
+}
+
+.PrA {
+	background-color: $color_Pr_A;
+}
+.PnA {
+	background-color: $color_Pn_A;
+}
+.PrB {
+	background-color: $color_Pr_B;
+}
+.PnB {
+	background-color: $color_Pn_B;
+}
+.Pr0 {
+	background-color: $color_Pr_0;
+}
+.Pn0 {
+	background-color: $color_Pn_0;
+}

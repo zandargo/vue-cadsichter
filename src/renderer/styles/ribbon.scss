@@ -1,0 +1,54 @@
+//* -------------------------------------------------------------------------- */
+//*                                   RIBBON                                   */
+//* -------------------------------------------------------------------------- */
+
+.ribbon {
+	display: flex;
+	flex-direction: row;
+	padding: 0 20px;
+
+	.btn-container {
+		height: 100%;
+		margin: 0px 10px;
+		margin-top: 5px;
+		user-select: none;
+		justify-content: center;
+		text-align: center;
+	}
+
+	h5 {
+		font-weight: 300;
+	}
+
+	img {
+		height: 40px;
+		filter: none;
+		-webkit-filter: grayscale(100%);
+		-moz-filter: grayscale(100%);
+		-ms-filter: grayscale(100%);
+		-o-filter: grayscale(100%);
+		cursor: pointer;
+		transition: all 100ms ease;
+		cursor: default;
+		border-radius: 5px;
+		border: 1px solid $bg_ribbon;
+		padding: 4px;
+		user-select: none;
+		-moz-user-select: none;
+		-webkit-user-drag: none;
+		-webkit-user-select: none;
+		-ms-user-select: none;
+
+		&:hover {
+			filter: none;
+			// height: 46px;
+			-webkit-filter: grayscale(0%);
+			-moz-filter: grayscale(0%);
+			-ms-filter: grayscale(0%);
+			-o-filter: grayscale(0%);
+			box-shadow: $shadow1;
+			border-radius: 5px;
+			border: 1px solid $color_l1;
+		}
+	}
+}

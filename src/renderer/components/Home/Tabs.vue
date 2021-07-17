@@ -2,39 +2,34 @@
 //* -------------------------------------------------------------------------- */
 //*                                   SCRIPT                                   */
 //* -------------------------------------------------------------------------- */
-
-// import { mapActions } from 'vuex'
-// import store from '../../store/index'
-// import { mapState, mapActions } from 'vuex'
+import { createNamespacedHelpers } from 'vuex'
+import { mapState, mapActions } from 'vuex'
+// const { mapState, mapActions } = createNamespacedHelpers('Tabs')
 
 export default {
 	name: 'tabs',
 	// store,
 	//* ---------------------------------- DATA ---------------------------------- */
 	data: function() {
-		return {
-			booltest: false,
-		}
+		return {}
 	},
 	//* ------------------------------- COMPUTED ------------------------------- *//
 
 	//* --------------------------------- METHODS -------------------------------- */
 	methods: {
-		// teste: function() {
-		// 	console.log('Testando...')
-		// },
-		// setCurrentTab: function(tabName) {
-		// 	console.log(tabName)
-		// 	this.$store.dispatch('setTab', tabName)
-		// },
-		// ...mapActions({
-		// 	tabSetFlow,
-		// 	tabSetChart,
-		// 	tabSetDef,
-		// }),
+		...mapActions('Tabs', {
+			//_ tabFlow: 'tabSetFlow',
+			//_ tabChart: 'tabSetChart',
+			//_ tabDef: 'tabSetDef',
+			setTab: 'setTab',
+		}),
 	},
 	//* -------------------------------- COMPUTED -------------------------------- */
-	computed: {},
+	computed: {
+		...mapState({
+			tab: (state) => state.Tabs.activeTab,
+		}),
+	},
 }
 </script>
 //* ------------------------------------------------------------------------ *//
@@ -44,8 +39,9 @@ export default {
 	<div id="menu-tabs">
 		<button
 			id="bt-flow"
-			class="tablink active"
-			@click="setCurrentTab('Flow')"
+			class="tablink"
+			:class="{ active: tab === 'Flow' }"
+			@click.prevent="setTab('Flow')"
 		>
 			Esquema
 		</button>
@@ -53,12 +49,18 @@ export default {
 		<button
 			id="bt-chart"
 			class="tablink"
-			@click="store.dispatch('tabSetChart')"
+			:class="{ active: tab === 'Chart' }"
+			@click.prevent="setTab('Chart')"
 		>
 			Esquemino
 		</button>
 
-		<button id="bt-defs1" class="tablink" @click="setCurrentTab('Def')">
+		<button
+			id="bt-defs1"
+			class="tablink"
+			:class="{ active: tab === 'Def' }"
+			@click.prevent="setTab('Def')"
+		>
 			Ficha Técnica
 		</button>
 	</div>
@@ -77,6 +79,8 @@ export default {
 	width: 100vw;
 	padding: 0 50px;
 	background-color: $bg_tabs;
+	position: relative;
+	z-index: 10;
 
 	button {
 		background-color: $bg_tabs;
@@ -84,6 +88,7 @@ export default {
 		font-family: inherit;
 		font-size: inherit;
 		height: 80%;
+		white-space: nowrap;
 		text-align: center;
 		text-decoration: none;
 		font-variant-caps: petite-caps;
